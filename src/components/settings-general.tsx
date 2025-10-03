@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Switch } from './ui/switch';
-import { User, Building, Mail, Globe, Lock, Bell, Shield, CheckCircle } from 'lucide-react';
+import { User, Building, Mail, Globe, Lock, Bell, Shield, CircleCheck as CheckCircle } from 'lucide-react';
 
 export function SettingsGeneral() {
   const [businessName, setBusinessName] = useState('Guardian Legal Associates');

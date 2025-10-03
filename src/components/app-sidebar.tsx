@@ -1,18 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './ui/sidebar';
 import { Badge } from './ui/badge';
-import {
-  LayoutDashboard,
-  Phone,
-  Settings,
-  Users,
-  CreditCard,
-  BarChart3,
-  Puzzle,
-  Lightbulb,
-  Shield,
-  Crown
-} from 'lucide-react';
+import { LayoutDashboard, Phone, Settings, Users, CreditCard, ChartBar as BarChart3, Puzzle, Lightbulb, Shield, Crown } from 'lucide-react';
 
 export function AppSidebar() {
   const navigate = useNavigate();
