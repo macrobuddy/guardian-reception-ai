@@ -4,6 +4,10 @@ import { AuthPage } from "./components/auth-page";
 import { OnboardingWizard } from "./components/onboarding-wizard";
 import { CheckoutPage } from "./components/checkout-page";
 import { Dashboard } from "./components/dashboard";
+import { SettingsLayout } from "./components/settings-layout";
+import { SettingsGeneral } from "./components/settings-general";
+import { VoiceSelection } from "./components/voice-selection";
+import { Toaster } from "./components/ui/sonner";
 
 // Landing Page Wrapper
 function LandingPageWrapper() {
@@ -127,19 +131,26 @@ export default function App() {
         <Routes>
           {/* Landing Page */}
           <Route path="/" element={<LandingPageWrapper />} />
-          
+
           {/* Auth Flow */}
           <Route path="/auth" element={<AuthPageWrapper />} />
           <Route path="/onboarding" element={<OnboardingWizardWrapper />} />
           <Route path="/checkout" element={<CheckoutPageWrapper />} />
-          
+
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<DashboardWrapper />} />
           <Route path="/dashboard/:view" element={<DashboardWrapper />} />
-          
+
+          {/* Settings Routes */}
+          <Route path="/settings" element={<SettingsLayout />}>
+            <Route index element={<SettingsGeneral />} />
+            <Route path="voice" element={<VoiceSelection />} />
+          </Route>
+
           {/* Redirect any unknown routes to landing */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Toaster />
       </div>
     </BrowserRouter>
   );
