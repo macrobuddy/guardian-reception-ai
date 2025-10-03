@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Badge } from "./ui/badge";
 import { Switch } from "./ui/switch";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import { Phone, Calendar, Target, DollarSign, CheckCircle, Star, Users, Building, Shield, Lock, CreditCard, Info, Eye, FileCheck, UserCheck, Server, Briefcase, Heart, Home, Bot, Activity, Sparkles, Zap, BarChart3, HeadphonesIcon, MessageSquare, Clock, ChevronRight, ChevronLeft, Scale, Stethoscope, Landmark, Mail, Slack, Plus } from "lucide-react";
+import { Phone, Calendar, Target, DollarSign, CircleCheck as CheckCircle, Star, Users, Building, Shield, Lock, CreditCard, Info, Eye, FileCheck, UserCheck, Server, Briefcase, Heart, Chrome as Home, Bot, Activity, Sparkles, Zap, ChartBar as BarChart3, Headphones as HeadphonesIcon, MessageSquare, Clock, ChevronRight, ChevronLeft, Scale, Stethoscope, Landmark, Mail, Slack, Plus } from "lucide-react";
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -683,31 +683,33 @@ export function LandingPage({ onGetStarted, onBookDemo, onSignIn, onDirectToDash
                   
                   {/* CTA Button with Trial Info */}
                   <div className="space-y-4">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button 
-                          className={`w-full py-6 text-lg transition-all duration-300 relative group ${
-                            plan.popular
-                              ? 'bg-black text-white hover:bg-gray-800 hover-glow animate-button-pulse'
-                              : plan.name === 'Enterprise'
-                                ? 'bg-white text-black hover:bg-gray-100 glow-white hover-scale'
-                                : 'bg-white text-black hover:bg-gray-100 hover:animate-trial-button-glow hover-scale'
-                          }`}
-                          onClick={onGetStarted}
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            className={`w-full py-6 text-lg transition-all duration-300 relative group ${
+                              plan.popular
+                                ? 'bg-black text-white hover:bg-gray-800 hover-glow animate-button-pulse'
+                                : plan.name === 'Enterprise'
+                                  ? 'bg-white text-black hover:bg-gray-100 glow-white hover-scale'
+                                  : 'bg-white text-black hover:bg-gray-100 hover:animate-trial-button-glow hover-scale'
+                            }`}
+                            onClick={onGetStarted}
+                          >
+                            {plan.cta}
+                            {plan.popular && (
+                              <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-subtle-shimmer"></div>
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="top"
+                          className="bg-black/90 text-white border-gray-600 backdrop-blur-sm"
                         >
-                          {plan.cta}
-                          {plan.popular && (
-                            <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-subtle-shimmer"></div>
-                          )}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent 
-                        side="top" 
-                        className="bg-black/90 text-white border-gray-600 backdrop-blur-sm"
-                      >
-                        <p className="text-sm font-medium">7-Day Free Trial Starts Now</p>
-                      </TooltipContent>
-                    </Tooltip>
+                          <p className="text-sm font-medium">7-Day Free Trial Starts Now</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                     
                     {/* Trial Details */}
                     <div className="space-y-3">
