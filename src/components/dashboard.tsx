@@ -15,95 +15,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { 
-  LayoutDashboard, 
-  Phone, 
-  Settings, 
-  Users, 
-  CreditCard,
-  CheckCircle,
-  Circle,
-  Plus,
-  BarChart3,
-  Calendar,
-  ArrowRight,
-  Shield,
-  Clock,
-  TrendingUp,
-  Target,
-  PhoneCall,
-  ArrowDown,
-  ArrowUp,
-  FileText,
-  Filter,
-  Bot,
-  Sparkles,
-  Zap,
-  Eye,
-  AlertTriangle,
-  Lightbulb,
-  ExternalLink,
-  Search,
-  Download,
-  StickyNote,
-  UserPlus,
-  X,
-  ChevronDown,
-  PhoneIncoming,
-  PhoneMissed,
-  MessageSquare,
-  CheckSquare,
-  AlertCircle,
-  PlayCircle,
-  PauseCircle,
-  Send,
-  Key,
-  Puzzle,
-  Sliders,
-  Bell,
-  Code,
-  User,
-  Mail,
-  Globe,
-  Lock,
-  Smartphone,
-  Upload,
-  Trash2,
-  Edit,
-  Copy,
-  Webhook,
-  Database,
-
-  Activity,
-  Building,
-  Calendar as CalendarIcon,
-  TrendingDown,
-  PieChart as PieChartIcon,
-  BarChart as BarChartIcon,
-  LineChart as LineChartIcon,
-  ChevronRight,
-  UserCheck,
-  UserX,
-  MoreHorizontal,
-  Crown,
-  UserCog,
-  History,
-  Briefcase,
-  HelpCircle,
-  BookOpen,
-  MessageCircle,
-  Bug,
-  VideoIcon,
-  ExternalLink as ExternalLinkIcon,
-  Star,
-  ChevronUp,
-  Volume2,
-  Play,
-  Mic,
-  Speaker,
-  ArrowLeft
-} from "lucide-react";
+import { LayoutDashboard, Phone, Settings, Users, CreditCard, CircleCheck as CheckCircle, Circle, Plus, ChartBar as BarChart3, Calendar, ArrowRight, Shield, Clock, TrendingUp, Target, PhoneCall, ArrowDown, ArrowUp, FileText, ListFilter as Filter, Bot, Sparkles, Zap, Eye, TriangleAlert as AlertTriangle, Lightbulb, ExternalLink, Search, Download, StickyNote, UserPlus, X, ChevronDown, PhoneIncoming, PhoneMissed, MessageSquare, SquareCheck as CheckSquare, CircleAlert as AlertCircle, CirclePlay as PlayCircle, CirclePause as PauseCircle, Send, Key, Puzzle, FileSliders as Sliders, Bell, Code, User, Mail, Globe, Lock, Smartphone, Upload, Trash2, CreditCard as Edit, Copy, Webhook, Database, Activity, Building, Calendar as CalendarIcon, TrendingDown, ChartPie as PieChartIcon, ChartBar as BarChartIcon, ChartLine as LineChartIcon, ChevronRight, UserCheck, UserX, MoveHorizontal as MoreHorizontal, Crown, UserCog, History, Briefcase, CircleHelp as HelpCircle, BookOpen, MessageCircle, Bug, Video as VideoIcon, ExternalLink as ExternalLinkIcon, Star, ChevronUp, Volume2, Play, Mic, Speaker, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 
 interface DashboardProps {
@@ -113,6 +27,7 @@ interface DashboardProps {
 }
 
 export function Dashboard({ currentView, onViewChange, userName = "Alex" }: DashboardProps) {
+  const navigate = useNavigate();
   const [callFilter, setCallFilter] = useState<'all' | 'appointments' | 'leads' | 'missed'>('all');
   const [showConfetti, setShowConfetti] = useState(false);
   
@@ -3671,7 +3586,13 @@ export function Dashboard({ currentView, onViewChange, userName = "Alex" }: Dash
                   {sidebarItems.map((item) => (
                     <SidebarMenuItem key={item.view}>
                       <SidebarMenuButton
-                        onClick={() => onViewChange(item.view)}
+                        onClick={() => {
+                          if (item.view === 'settings') {
+                            navigate('/settings');
+                          } else {
+                            onViewChange(item.view);
+                          }
+                        }}
                         isActive={currentView === item.view || currentView.startsWith(item.view + '/')}
                         className="text-gray-400 hover:text-white hover:bg-gray-800 data-[active=true]:bg-white data-[active=true]:text-black data-[active=true]:glow-white"
                       >
