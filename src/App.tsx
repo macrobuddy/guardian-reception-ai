@@ -1,11 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { LandingPage } from "./components/landing-page";
 import { AuthPage } from "./components/auth-page";
 import { OnboardingWizard } from "./components/onboarding-wizard";
 import { CheckoutPage } from "./components/checkout-page";
 import { Dashboard } from "./components/dashboard";
 
-// Landing Page Wrapper
 function LandingPageWrapper() {
   const navigate = useNavigate();
 
@@ -26,7 +25,7 @@ function LandingPageWrapper() {
   };
 
   return (
-    <LandingPage 
+    <LandingPage
       onGetStarted={handleGetStarted}
       onBookDemo={handleBookDemo}
       onSignIn={handleSignIn}
@@ -35,7 +34,6 @@ function LandingPageWrapper() {
   );
 }
 
-// Auth Page Wrapper
 function AuthPageWrapper() {
   const navigate = useNavigate();
 
@@ -48,14 +46,13 @@ function AuthPageWrapper() {
   };
 
   return (
-    <AuthPage 
+    <AuthPage
       onBack={handleBack}
       onComplete={handleComplete}
     />
   );
 }
 
-// Onboarding Wizard Wrapper
 function OnboardingWizardWrapper() {
   const navigate = useNavigate();
 
@@ -68,14 +65,13 @@ function OnboardingWizardWrapper() {
   };
 
   return (
-    <OnboardingWizard 
+    <OnboardingWizard
       onBack={handleBack}
       onComplete={handleComplete}
     />
   );
 }
 
-// Checkout Page Wrapper
 function CheckoutPageWrapper() {
   const navigate = useNavigate();
 
@@ -88,21 +84,20 @@ function CheckoutPageWrapper() {
   };
 
   return (
-    <CheckoutPage 
+    <CheckoutPage
       onBack={handleBack}
       onComplete={handleComplete}
     />
   );
 }
 
-// Dashboard Wrapper
 function DashboardWrapper() {
   const navigate = useNavigate();
   const params = useParams();
-  
-  // Extract the current view from URL params
-  const currentView = params.view || 'dashboard';
-  
+  const location = useLocation();
+
+  const currentView = params['*'] || params.view || 'dashboard';
+
   const handleViewChange = (view: string) => {
     if (view === 'dashboard') {
       navigate('/dashboard');
@@ -112,7 +107,7 @@ function DashboardWrapper() {
   };
 
   return (
-    <Dashboard 
+    <Dashboard
       currentView={currentView as any}
       onViewChange={handleViewChange}
       userName="Alex"
@@ -125,20 +120,15 @@ export default function App() {
     <BrowserRouter>
       <div className="size-full">
         <Routes>
-          {/* Landing Page */}
           <Route path="/" element={<LandingPageWrapper />} />
-          
-          {/* Auth Flow */}
+
           <Route path="/auth" element={<AuthPageWrapper />} />
           <Route path="/onboarding" element={<OnboardingWizardWrapper />} />
           <Route path="/checkout" element={<CheckoutPageWrapper />} />
-          
-          {/* Dashboard Routes */}
+
           <Route path="/dashboard" element={<DashboardWrapper />} />
           <Route path="/dashboard/:view" element={<DashboardWrapper />} />
-          
-          {/* Redirect any unknown routes to landing */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/dashboard/*" element={<DashboardWrapper />} />
         </Routes>
       </div>
     </BrowserRouter>
